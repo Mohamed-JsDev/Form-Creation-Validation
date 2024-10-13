@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     feedbackDiv.style.display = "block";
 
-    if (isValid) {
+    if (isValid == true) {
       feedbackDiv.textContent = "Registration successful!";
       feedbackDiv.style.color = "#28a745";
       form.submit();
-    } else {
+    } else if (isValid == false) {
       feedbackDiv.style.color = "#dc3545";
       feedbackDiv.innerHTML = `<br>${message}`;
     }
