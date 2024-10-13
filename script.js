@@ -1,40 +1,49 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Form Selection
   const form = document.getElementById("registration-form");
   const feedbackDiv = document.getElementById("form-feedback");
 
+  // Form Submission Event Listener
   form.addEventListener("submit", function (event) {
-    let isValid = true;
-    let message = "";
-    event.preventDefault();
+    event.preventDefault(); // Prevent form submission
 
+    // Input Retrieval and Trimming
     const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+    const password = document.getElementById("password").value.trim();
 
+    // Validation Logic
+    let isValid = true; // Initialize validation status
+    const messages = []; // Array to store validation messages
+
+    // Username Validation
     if (username.length < 3) {
       isValid = false;
-      message = "The username must be at least 3 characters long.";
+      messages.push("Username must be at least 3 characters long.");
     }
 
-    if (!email.includes("@")) {
+    // Email Validation
+    if (!email.includes("@") || !email.includes(".")) {
       isValid = false;
-      message = "The email must contain an '@' symbol.";
+      messages.push("Email must contain both '@' and '.' characters.");
     }
 
+    // Password Validation
     if (password.length < 8) {
       isValid = false;
-      message = "Password must contain at least 8 characters.";
+      messages.push("Password must contain at least 8 characters.");
     }
 
-    feedbackDiv.style.display = "block";
+    // Display Feedback
+    feedbackDiv.style.display = "block"; // Make feedbackDiv visible
 
-    if (isValid == true) {
+    if (isValid) {
       feedbackDiv.textContent = "Registration successful!";
-      feedbackDiv.style.color = "#28a745";
-      form.submit();
-    } else if (isValid == false) {
-      feedbackDiv.style.color = "#dc3545";
-      feedbackDiv.innerHTML = `<br>${message}`;
+      feedbackDiv.style.color = "#28a745"; // Success color
+      form.submit(); // Submit the form if valid
+    } else {
+      feedbackDiv.innerHTML = messages.join("<br>"); // Join messages with <br>
+      feedbackDiv.style.color = "#dc3545"; // Error color
     }
   });
 });
